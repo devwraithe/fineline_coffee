@@ -23,7 +23,6 @@ class _CustomizeState extends State<Customize> with TickerProviderStateMixin {
         slivers: [
           SliverLayoutBuilder(
             builder: (BuildContext context, constraints) {
-              final scrolled = constraints.scrollOffset > screenHeight * 0.26;
               return SliverAppBar(
                 centerTitle: true,
                 expandedHeight: screenHeight * 0.40,
@@ -190,7 +189,7 @@ class _CustomizeState extends State<Customize> with TickerProviderStateMixin {
                       ),
                       const SizedBox(height: 21),
                       FilledButton(
-                        onPressed: () {},
+                        onPressed: () => context.goNamed("checkout"),
                         child: const Text(
                           "CHECKOUT",
                         ),
