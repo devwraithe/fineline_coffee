@@ -177,7 +177,7 @@ class _CheckoutState extends State<Checkout> {
                       ),
                       const SizedBox(height: 50),
                       FilledButton(
-                        onPressed: () => context.goNamed("checkout"),
+                        onPressed: () => context.goNamed("confirmation"),
                         child: const Text(
                           "PAY \$3.50",
                         ),

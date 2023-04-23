@@ -2,6 +2,7 @@ import 'package:fineline_coffee/pages/customize.dart';
 import 'package:go_router/go_router.dart';
 
 import '../pages/checkout.dart';
+import '../pages/confirmation.dart';
 import '../pages/home.dart';
 
 final routes = [
@@ -23,5 +24,10 @@ final routes = [
         ],
       ),
     ],
+  ),
+  GoRoute(
+    name: "confirmation",
+    path: "/confirmation",
+    builder: (context, state) => const Confirmation(),
   ),
 ];

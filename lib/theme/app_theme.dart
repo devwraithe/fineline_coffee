@@ -80,9 +80,10 @@ class AppTextTheme {
       fontFamily: "BagnardSans",
     ),
     headlineSmall: TextStyle(
-      fontSize: 25.63,
-      fontWeight: FontWeight.w500,
-      color: AppColors.black,
+      fontSize: 24,
+      fontWeight: FontWeight.w400,
+      color: AppColors.darkBrown,
+      height: 1.4,
     ),
     titleLarge: TextStyle(
       fontSize: 22.78,
