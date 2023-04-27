@@ -12,6 +12,22 @@ class Checkout extends StatefulWidget {
 }
 
 class _CheckoutState extends State<Checkout> {
+  int quantity = 1;
+
+  int increment() {
+    setState(() {
+      quantity++;
+    });
+    return quantity;
+  }
+
+  int decrement() {
+    setState(() {
+      quantity--;
+    });
+    return quantity;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,14 +97,20 @@ class _CheckoutState extends State<Checkout> {
                         ),
                       ),
                       const SizedBox(height: 25),
-                      const OrderItem(
+                      OrderItem(
                         image:
                             'https://i.pinimg.com/564x/0a/27/47/0a2747c100a4790920a366a39e242f71.jpg',
                         name: "Frozen Coconut Frappe",
                         description:
                             "Cinnamon Dolce Sprinkles, Vanilla Sweet Cream, Small Cup",
-                        price: "3.50",
-                        quantity: "3",
+                        price: (3.50 * quantity).toString(),
+                        quantity: quantity.toString(),
+                        onIncrease: increment,
+                        onDecrease: quantity == 1
+                            ? () {
+                                print("Quantity must not be less than 1");
+                              }
+                            : decrement,
                       ),
                       const SizedBox(height: 50),
                       Text(
@@ -138,12 +160,30 @@ class _CheckoutState extends State<Checkout> {
                                     fontSize: 13,
                                   ),
                                 ),
-                                Text(
-                                  "Change",
-                                  style: AppTextTheme.textTheme.bodyMedium
-                                      ?.copyWith(
-                                    fontSize: 13,
-                                    color: AppColors.darkBrown,
+                                GestureDetector(
+                                  onTap: () {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: Colors.red,
+                                        content: Text(
+                                          "Feature is not available in this prototype",
+                                          style: AppTextTheme
+                                              .textTheme.bodyLarge
+                                              ?.copyWith(
+                                            color: AppColors.white,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    "Change",
+                                    style: AppTextTheme.textTheme.bodyMedium
+                                        ?.copyWith(
+                                      fontSize: 13,
+                                      color: AppColors.darkBrown,
+                                    ),
                                   ),
                                 ),
                               ],

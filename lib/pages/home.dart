@@ -28,6 +28,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   final List _hotCoffees = [
     {
+      "id": "1",
       "name": "Frozen Coconut Frappe",
       "desc": "20cals, 12oz",
       "price": "3.50",
@@ -35,6 +36,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           "https://i.pinimg.com/564x/13/fc/7b/13fc7b57175ac8dd142d75894daa79bf.jpg",
     },
     {
+      "id": "2",
       "name": "Chocolate Iced Coffee",
       "desc": "100cals, 12oz",
       "price": "3.50",
@@ -42,6 +44,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           "https://i.pinimg.com/564x/0a/27/47/0a2747c100a4790920a366a39e242f71.jpg",
     },
     {
+      "id": "3",
       "name": "Frozen Coconut Frappe",
       "desc": "20cals, 12oz",
       "price": "3.50",
@@ -49,6 +52,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           "https://i.pinimg.com/564x/13/fc/7b/13fc7b57175ac8dd142d75894daa79bf.jpg",
     },
     {
+      "id": "4",
       "name": "Chocolate Iced Coffee",
       "desc": "100cals, 12oz",
       "price": "3.50",
@@ -56,6 +60,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           "https://i.pinimg.com/564x/0a/27/47/0a2747c100a4790920a366a39e242f71.jpg",
     },
     {
+      "id": "5",
       "name": "Frozen Coconut Frappe",
       "desc": "20cals, 12oz",
       "price": "3.50",
@@ -63,6 +68,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           "https://i.pinimg.com/564x/13/fc/7b/13fc7b57175ac8dd142d75894daa79bf.jpg",
     },
     {
+      "id": "6",
       "name": "Chocolate Iced Coffee",
       "desc": "100cals, 12oz",
       "price": "3.50",
@@ -70,6 +76,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           "https://i.pinimg.com/564x/0a/27/47/0a2747c100a4790920a366a39e242f71.jpg",
     },
     {
+      "id": "7",
       "name": "Frozen Coconut Frappe",
       "desc": "20cals, 12oz",
       "price": "3.50",
@@ -77,6 +84,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           "https://i.pinimg.com/564x/13/fc/7b/13fc7b57175ac8dd142d75894daa79bf.jpg",
     },
     {
+      "id": "8",
       "name": "Chocolate Iced Coffee",
       "desc": "100cals, 12oz",
       "price": "3.50",
@@ -87,6 +95,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   final List _coldCoffees = [
     {
+      "id": "1",
       "name": "Frozen Coconut Frappe",
       "desc": "20cals, 12oz",
       "price": "3.50",
@@ -94,6 +103,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           "https://i.pinimg.com/564x/13/fc/7b/13fc7b57175ac8dd142d75894daa79bf.jpg",
     },
     {
+      "id": "2",
       "name": "Chocolate Iced Coffee",
       "desc": "100cals, 12oz",
       "price": "3.50",
@@ -219,6 +229,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                 child: Padding(
                                   padding: const EdgeInsets.only(bottom: 30),
                                   child: TabViewItem(
+                                    id: coffee['id'],
                                     image: coffee['image'],
                                     name: coffee['name'],
                                     description: coffee['desc'],
@@ -239,11 +250,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           itemCount: _coldCoffees.length,
                           itemBuilder: (context, index) {
                             final coffee = _coldCoffees[index];
+
                             return FadeTransition(
                               opacity: _animationList[index],
                               child: Padding(
                                 padding: const EdgeInsets.only(bottom: 30),
                                 child: TabViewItem(
+                                  id: coffee['id'],
                                   image: coffee['image'],
                                   name: coffee['name'],
                                   description: coffee['desc'],

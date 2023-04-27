@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fineline_coffee/widgets/order_addons.dart';
 import 'package:fineline_coffee/widgets/order_size.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,61 @@ class Customize extends StatefulWidget {
 }
 
 class _CustomizeState extends State<Customize> with TickerProviderStateMixin {
+  // handle the sizing selection
+  String? _selectedSize;
+  void _selectSize(String size) {
+    setState(() {
+      _selectedSize = size;
+    });
+  }
+
+  // handle the addons selection
+  final List<String> _selectedAddOns = [];
+  final List<double> _selectedAddonPrice = [];
+  void _toggleAddOn(String addOn, double addOnPrice) {
+    setState(() {
+      if (_selectedAddOns.contains(addOn)) {
+        _selectedAddOns.remove(addOn);
+        _selectedAddonPrice.remove(addOnPrice);
+      } else {
+        _selectedAddOns.add(addOn);
+        _selectedAddonPrice.add(addOnPrice);
+      }
+    });
+  }
+
+  // list of addons
+  final List addons = [
+    {
+      "name": "Extra Milk",
+      "price": 1.50,
+    },
+    {
+      "name": "Whipped Cream",
+      "price": 2.50,
+    },
+    {
+      "name": "Extra Sugar",
+      "price": 0.80,
+    },
+    {
+      "name": "Malt Powder",
+      "price": 4.20,
+    },
+    {
+      "name": "Honey Syrup",
+      "price": 6.05,
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = Sizing.screenHeight(context);
+
+    // addition of the base price and the addons
+    double total = _selectedAddonPrice.fold(0, (previousValue, element) {
+      return previousValue + element;
+    });
 
     return Scaffold(
       backgroundColor: AppColors.white,
@@ -25,7 +78,7 @@ class _CustomizeState extends State<Customize> with TickerProviderStateMixin {
             builder: (BuildContext context, constraints) {
               return SliverAppBar(
                 centerTitle: true,
-                expandedHeight: screenHeight * 0.40,
+                expandedHeight: screenHeight * 0.42,
                 collapsedHeight: 66,
                 backgroundColor: AppColors.darkBrown,
                 leading: GestureDetector(
@@ -55,27 +108,29 @@ class _CustomizeState extends State<Customize> with TickerProviderStateMixin {
                 floating: true,
                 shadowColor: Colors.grey.withOpacity(0.4),
                 flexibleSpace: FlexibleSpaceBar(
-                  background: Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          'https://i.pinimg.com/564x/0a/27/47/0a2747c100a4790920a366a39e242f71.jpg',
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            AppColors.black.withOpacity(0.5),
-                            Colors.transparent,
-                          ],
+                  background: Stack(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              'https://i.pinimg.com/564x/13/fc/7b/13fc7b57175ac8dd142d75894daa79bf.jpg',
+                          fit: BoxFit.cover,
                         ),
                       ),
-                    ),
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              AppColors.black.withOpacity(0.5),
+                              Colors.transparent,
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );
@@ -125,49 +180,66 @@ class _CustomizeState extends State<Customize> with TickerProviderStateMixin {
                       ),
                       const SizedBox(height: 18),
                       Row(
-                        children: const [
-                          OrderSize(size: "SM"),
-                          SizedBox(width: 19),
-                          OrderSize(size: "MD"),
-                          SizedBox(width: 19),
-                          OrderSize(size: "LG"),
-                          SizedBox(width: 19),
-                          OrderSize(size: "XL"),
+                        children: [
+                          OrderSize(
+                            size: "SM",
+                            isSelected: _selectedSize == "SM",
+                            onSelect: _selectSize,
+                          ),
+                          const SizedBox(width: 19),
+                          OrderSize(
+                            size: "MD",
+                            isSelected: _selectedSize == "MD",
+                            onSelect: _selectSize,
+                          ),
+                          const SizedBox(width: 19),
+                          OrderSize(
+                            size: "LG",
+                            isSelected: _selectedSize == "LG",
+                            onSelect: _selectSize,
+                          ),
+                          const SizedBox(width: 19),
+                          OrderSize(
+                            size: "XL",
+                            isSelected: _selectedSize == "XL",
+                            onSelect: _selectSize,
+                          ),
                         ],
                       ),
                       const SizedBox(height: 51),
-                      Text(
-                        "ORDER ADD ONS",
-                        style: AppTextTheme.textTheme.bodyMedium?.copyWith(
-                          letterSpacing: 1,
-                          fontWeight: FontWeight.w700,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "ORDER ADD ONS",
+                            style: AppTextTheme.textTheme.bodyMedium?.copyWith(
+                              letterSpacing: 1,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          Text(
+                            "${_selectedAddOns.length.toString()} Selected",
+                            style: AppTextTheme.textTheme.bodyLarge?.copyWith(
+                              // letterSpacing: 1,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 23),
-                      const OrderAddons(
-                        addon: "Steamed Hot Milk",
-                        price: "0.32",
-                      ),
-                      const SizedBox(height: 20),
-                      const OrderAddons(
-                        addon: "Chocolate Malt Powder",
-                        price: "0.32",
-                      ),
-                      const SizedBox(height: 20),
-                      const OrderAddons(
-                        addon: "Cinnamon Dolce Sprinkles",
-                        price: "0.32",
-                      ),
-                      const SizedBox(height: 20),
-                      const OrderAddons(
-                        addon: "Whipped Cream",
-                        price: "0.32",
-                      ),
-                      const SizedBox(height: 20),
-                      const OrderAddons(
-                        addon: "Vanilla Sweet Cream",
-                        price: "0.32",
-                      ),
+                      for (final addon in addons)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: OrderAddons(
+                            addon: addon['name'],
+                            price: addon['price'].toString(),
+                            isSelected: _selectedAddOns.contains(addon['name']),
+                            onTap: () => _toggleAddOn(
+                              addon['name'],
+                              addon['price'],
+                            ),
+                          ),
+                        ),
                       const SizedBox(height: 51),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -180,7 +252,7 @@ class _CustomizeState extends State<Customize> with TickerProviderStateMixin {
                             ),
                           ),
                           Text(
-                            "\$30.0",
+                            "\$${(total + 30.0).toString()}",
                             style: AppTextTheme.textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.w700,
                             ),

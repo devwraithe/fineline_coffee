@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 
 class TabViewItem extends StatelessWidget {
-  final String image, name, description, price;
+  final String image, name, description, price, id;
   const TabViewItem({
     super.key,
+    required this.id,
     required this.image,
     required this.name,
     required this.description,

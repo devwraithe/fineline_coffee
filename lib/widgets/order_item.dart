@@ -6,6 +6,8 @@ import '../theme/app_theme.dart';
 
 class OrderItem extends StatelessWidget {
   final String image, name, description, price, quantity;
+  final Function()? onDecrease, onIncrease;
+
   const OrderItem({
     super.key,
     required this.image,
@@ -13,6 +15,8 @@ class OrderItem extends StatelessWidget {
     required this.description,
     required this.price,
     required this.quantity,
+    required this.onDecrease,
+    required this.onIncrease,
   });
 
   @override
@@ -60,7 +64,7 @@ class OrderItem extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 2),
                     child: Text(
-                      "${quantity}x \$$price",
+                      "x$quantity \$$price",
                       style: AppTextTheme.textTheme.bodyMedium?.copyWith(
                         fontSize: 13,
                         fontWeight: FontWeight.w700,
@@ -69,14 +73,14 @@ class OrderItem extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      qtyIcon("-"),
+                      qtyIcon("-", onDecrease),
                       const SizedBox(width: 8),
                       Text(
-                        "3",
+                        quantity,
                         style: AppTextTheme.textTheme.bodyMedium,
                       ),
                       const SizedBox(width: 8),
-                      qtyIcon("+"),
+                      qtyIcon("+", onIncrease),
                     ],
                   ),
                 ],
@@ -88,21 +92,27 @@ class OrderItem extends StatelessWidget {
     );
   }
 
-  Widget qtyIcon(String icon) {
-    return Container(
-      width: 20,
-      height: 20,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: AppColors.grey,
+  Widget qtyIcon(
+    String icon,
+    void Function()? onTap,
+  ) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 20,
+        height: 20,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: AppColors.grey,
+          ),
+          borderRadius: BorderRadius.circular(40),
         ),
-        borderRadius: BorderRadius.circular(40),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        icon,
-        style: AppTextTheme.textTheme.bodyMedium?.copyWith(
-          color: AppColors.grey,
+        alignment: Alignment.center,
+        child: Text(
+          icon,
+          style: AppTextTheme.textTheme.bodyMedium?.copyWith(
+            color: AppColors.grey,
+          ),
         ),
       ),
     );
