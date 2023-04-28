@@ -1,9 +1,9 @@
-import 'package:fineline_coffee/pages/customize.dart';
+import 'package:fineline_coffee/presentation/pages/customize.dart';
 import 'package:go_router/go_router.dart';
 
-import '../pages/checkout.dart';
-import '../pages/confirmation.dart';
-import '../pages/home.dart';
+import '../../presentation/pages/checkout.dart';
+import '../../presentation/pages/confirmation.dart';
+import '../../presentation/pages/home.dart';
 
 final routes = [
   GoRoute(

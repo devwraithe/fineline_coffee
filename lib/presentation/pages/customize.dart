@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fineline_coffee/widgets/order_addons.dart';
-import 'package:fineline_coffee/widgets/order_size.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../helpers/sizing.dart';
-import '../theme/theme.dart';
+import '../../core/helpers/sizing.dart';
+import '../../core/theme/theme.dart';
+import '../widgets/order_addons.dart';
+import '../widgets/order_size.dart';
 
 class Customize extends StatefulWidget {
   const Customize({super.key});

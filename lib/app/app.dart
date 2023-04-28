@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../router/routes_config.dart';
-import '../theme/app_theme.dart';
+import '../core/router/routes_config.dart';
+import '../core/theme/app_theme.dart';
 
 class FinelineCoffee extends StatelessWidget {
   const FinelineCoffee({Key? key}) : super(key: key);

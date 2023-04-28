@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme/app_theme.dart';
+import '../../core/theme/app_theme.dart';
 
 class TabView extends StatefulWidget {
   final String title;

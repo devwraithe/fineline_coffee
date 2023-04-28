@@ -1,9 +1,9 @@
-import 'package:fineline_coffee/widgets/order_item.dart';
-import 'package:fineline_coffee/widgets/payment_item.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../theme/app_theme.dart';
+import '../../core/theme/app_theme.dart';
+import '../widgets/order_item.dart';
+import '../widgets/payment_item.dart';
 
 class Checkout extends StatefulWidget {
   const Checkout({super.key});
@@ -114,9 +114,8 @@ class _CheckoutState extends State<Checkout> {
                         quantity: quantity.toString(),
                         onIncrease: increment,
                         onDecrease: quantity == 1
-                            ? () {
-                                print("Quantity must not be less than 1");
-                              }
+                            ? () =>
+                                debugPrint("Quantity must not be less than 1")
                             : decrement,
                       ),
                       const SizedBox(height: 50),
