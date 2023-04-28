@@ -28,6 +28,13 @@ class _CheckoutState extends State<Checkout> {
     return quantity;
   }
 
+  String? _selectedPayment;
+  void _selectPayment(String payment) {
+    setState(() {
+      _selectedPayment = payment;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -201,25 +208,32 @@ class _CheckoutState extends State<Checkout> {
                         ),
                       ),
                       const SizedBox(height: 24),
-                      const PaymentItem(
+                      PaymentItem(
                         title: "Fineline Coffee Balance",
                         description: "\$136.24",
+                        isSelected:
+                            _selectedPayment == "Fineline Coffee Balance",
+                        onSelect: _selectPayment,
                       ),
                       const SizedBox(height: 13),
-                      const PaymentItem(
+                      PaymentItem(
                         title: "Mastercard **7890",
                         description: "exp 05/24",
+                        isSelected: _selectedPayment == "Mastercard **7890",
+                        onSelect: _selectPayment,
                       ),
                       const SizedBox(height: 13),
-                      const PaymentItem(
+                      PaymentItem(
                         title: "Visa **2345",
                         description: "exp 08/25",
+                        isSelected: _selectedPayment == "Visa **2345",
+                        onSelect: _selectPayment,
                       ),
                       const SizedBox(height: 50),
                       FilledButton(
                         onPressed: () => context.goNamed("confirmation"),
-                        child: const Text(
-                          "PAY \$3.50",
+                        child: Text(
+                          "PAY \$${(3.50 * quantity).toString()}",
                         ),
                       ),
                     ],
