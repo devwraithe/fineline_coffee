@@ -19,7 +19,7 @@ class Confirmation extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               GestureDetector(
-                onTap: () => context.goNamed('home'),
+                onTap: () => context.pushNamed('home'),
                 child: const Icon(
                   Icons.close,
                   size: 26,

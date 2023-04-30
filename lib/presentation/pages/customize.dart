@@ -8,7 +8,19 @@ import '../widgets/order_addons.dart';
 import '../widgets/order_size.dart';
 
 class Customize extends StatefulWidget {
-  const Customize({super.key});
+  final List addons;
+  final double price;
+  final String name, image, description;
+
+  const Customize({
+    super.key,
+    required this.addons,
+    required this.price,
+    required this.name,
+    required this.image,
+    required this.description,
+  });
+
   @override
   State<Customize> createState() => _CustomizeState();
 }
@@ -37,38 +49,15 @@ class _CustomizeState extends State<Customize> with TickerProviderStateMixin {
     });
   }
 
-  // list of addons
-  final List addons = [
-    {
-      "name": "Extra Milk",
-      "price": 1.50,
-    },
-    {
-      "name": "Whipped Cream",
-      "price": 2.50,
-    },
-    {
-      "name": "Extra Sugar",
-      "price": 0.80,
-    },
-    {
-      "name": "Malt Powder",
-      "price": 4.20,
-    },
-    {
-      "name": "Honey Syrup",
-      "price": 6.05,
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
     final screenHeight = Sizing.screenHeight(context);
 
-    // addition of the base price and the addons
     double total = _selectedAddonPrice.fold(0, (previousValue, element) {
       return previousValue + element;
     });
+
+    final grandTotal = (total + widget.price).toStringAsFixed(2);
 
     return Scaffold(
       backgroundColor: AppColors.white,
@@ -82,7 +71,7 @@ class _CustomizeState extends State<Customize> with TickerProviderStateMixin {
                 collapsedHeight: 66,
                 backgroundColor: AppColors.darkBrown,
                 leading: GestureDetector(
-                  onTap: () => context.goNamed('home'),
+                  onTap: () => context.pop(),
                   child: const Padding(
                     padding: EdgeInsets.only(top: 0, left: 6, right: 0),
                     child: Icon(
@@ -148,7 +137,7 @@ class _CustomizeState extends State<Customize> with TickerProviderStateMixin {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "FROZEN COCONUT FRAPPE",
+                        widget.name.toUpperCase(),
                         style: AppTextTheme.textTheme.titleSmall?.copyWith(
                           letterSpacing: 1.2,
                           fontWeight: FontWeight.w700,
@@ -159,13 +148,13 @@ class _CustomizeState extends State<Customize> with TickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "20cals, 12oz",
+                            widget.description,
                             style: AppTextTheme.textTheme.bodyLarge?.copyWith(
                               color: AppColors.darkBrown,
                             ),
                           ),
                           Text(
-                            "\$3.50",
+                            "\$${widget.price}",
                             style: AppTextTheme.textTheme.bodyLarge,
                           ),
                         ],
@@ -227,20 +216,21 @@ class _CustomizeState extends State<Customize> with TickerProviderStateMixin {
                         ],
                       ),
                       const SizedBox(height: 23),
-                      for (final addon in addons)
+                      for (final addon in widget.addons)
                         Padding(
                           padding: const EdgeInsets.only(bottom: 20),
                           child: OrderAddons(
-                            addon: addon['name'],
+                            addon: addon['addon'],
                             price: addon['price'].toString(),
-                            isSelected: _selectedAddOns.contains(addon['name']),
+                            isSelected:
+                                _selectedAddOns.contains(addon['addon']),
                             onTap: () => _toggleAddOn(
-                              addon['name'],
+                              addon['addon'],
                               addon['price'],
                             ),
                           ),
                         ),
-                      const SizedBox(height: 51),
+                      const SizedBox(height: 31),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -252,7 +242,7 @@ class _CustomizeState extends State<Customize> with TickerProviderStateMixin {
                             ),
                           ),
                           Text(
-                            "\$${(total + 30.0).toString()}",
+                            "\$$grandTotal",
                             style: AppTextTheme.textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.w700,
                             ),
@@ -261,7 +251,34 @@ class _CustomizeState extends State<Customize> with TickerProviderStateMixin {
                       ),
                       const SizedBox(height: 21),
                       FilledButton(
-                        onPressed: () => context.goNamed("checkout"),
+                        onPressed: () {
+                          if (_selectedSize == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor: Colors.red,
+                                content: Text(
+                                  "Please select a size for your order",
+                                  style: AppTextTheme.textTheme.bodyLarge
+                                      ?.copyWith(
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            );
+                          } else {
+                            context.pushNamed(
+                              "checkout",
+                              params: {
+                                "selected_addons": _selectedAddOns.toString(),
+                                "size": _selectedSize!,
+                                "total_price": grandTotal,
+                                'name': widget.name,
+                                'image': widget.image,
+                              },
+                            );
+                          }
+                        },
                         child: const Text(
                           "CHECKOUT",
                         ),

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class RoutesConfig {
-  static final _navigationKey = GlobalKey<NavigatorState>();
+  static final navigationKey = GlobalKey<NavigatorState>();
   static final routeConfig = GoRouter(
-    initialLocation: '/',
-    navigatorKey: _navigationKey,
+    initialLocation: '/home',
+    navigatorKey: navigationKey,
     routes: routes,
   );
 }

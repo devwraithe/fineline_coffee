@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../core/theme/app_theme.dart';
 import '../widgets/order_item.dart';
 import '../widgets/payment_item.dart';
 
 class Checkout extends StatefulWidget {
-  const Checkout({super.key});
+  final String addons, size, name, image;
+  final double price;
+
+  const Checkout({
+    super.key,
+    required this.addons,
+    required this.size,
+    required this.price,
+    required this.name,
+    required this.image,
+  });
   @override
   State<Checkout> createState() => _CheckoutState();
 }
@@ -35,8 +46,19 @@ class _CheckoutState extends State<Checkout> {
     });
   }
 
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
+    final addons = widget.addons.substring(1, widget.addons.length - 1);
+    final selectedSize = widget.size == "SM"
+        ? "Small Cup"
+        : widget.size == "MD"
+            ? "Medium Cup"
+            : widget.size == "LG"
+                ? "Large Cup"
+                : "Extra Large Cup";
+
     return Scaffold(
       backgroundColor: AppColors.darkBrown,
       body: SafeArea(
@@ -50,7 +72,7 @@ class _CheckoutState extends State<Checkout> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: () => context.goNamed('customize'),
+                    onTap: () => context.pop(),
                     child: const Icon(
                       Icons.arrow_back_ios_new_rounded,
                       size: 20,
@@ -105,12 +127,11 @@ class _CheckoutState extends State<Checkout> {
                       ),
                       const SizedBox(height: 25),
                       OrderItem(
-                        image:
-                            'https://i.pinimg.com/564x/0a/27/47/0a2747c100a4790920a366a39e242f71.jpg',
-                        name: "Frozen Coconut Frappe",
+                        image: widget.image,
+                        name: widget.name,
                         description:
-                            "Cinnamon Dolce Sprinkles, Vanilla Sweet Cream, Small Cup",
-                        price: (3.50 * quantity).toString(),
+                            "${addons.isEmpty ? "" : "$addons, "}$selectedSize",
+                        price: (widget.price * quantity).toStringAsFixed(2),
                         quantity: quantity.toString(),
                         onIncrease: increment,
                         onDecrease: quantity == 1
@@ -230,10 +251,37 @@ class _CheckoutState extends State<Checkout> {
                       ),
                       const SizedBox(height: 50),
                       FilledButton(
-                        onPressed: () => context.goNamed("confirmation"),
-                        child: Text(
-                          "PAY \$${(3.50 * quantity).toString()}",
-                        ),
+                        onPressed: () {
+                          if (_selectedPayment != null) {
+                            setState(() => _isLoading = true);
+                            Future.delayed(const Duration(seconds: 4), () {
+                              context.pushReplacementNamed("confirmation");
+                              setState(() => _isLoading = false);
+                            });
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor: Colors.red,
+                                content: Text(
+                                  "Please select a method for payment",
+                                  style: AppTextTheme.textTheme.bodyLarge
+                                      ?.copyWith(
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                        child: _isLoading == true
+                            ? LoadingAnimationWidget.threeArchedCircle(
+                                color: AppColors.white,
+                                size: 22,
+                              )
+                            : Text(
+                                "PAY \$${(widget.price * quantity).toStringAsFixed(2)}",
+                              ),
                       ),
                     ],
                   ),

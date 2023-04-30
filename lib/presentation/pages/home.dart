@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fineline_coffee/presentation/widgets/shimmer_loading.dart';
 import 'package:fineline_coffee/presentation/widgets/tab_view.dart';
 import 'package:flutter/material.dart';
@@ -88,25 +90,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     },
     {
       "id": "8",
-      "name": "Chocolate Iced Coffee",
-      "desc": "100cals, 12oz",
-      "price": "3.50",
-      "image":
-          "https://i.pinimg.com/564x/0a/27/47/0a2747c100a4790920a366a39e242f71.jpg",
-    },
-  ];
-
-  final List _coldCoffees = [
-    {
-      "id": "1",
-      "name": "Frozen Coconut Frappe",
-      "desc": "20cals, 12oz",
-      "price": "3.50",
-      "image":
-          "https://i.pinimg.com/564x/13/fc/7b/13fc7b57175ac8dd142d75894daa79bf.jpg",
-    },
-    {
-      "id": "2",
       "name": "Chocolate Iced Coffee",
       "desc": "100cals, 12oz",
       "price": "3.50",
@@ -234,11 +217,23 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                       return FadeTransition(
                                         opacity: _animationList[index],
                                         child: GestureDetector(
-                                          onTap: () =>
-                                              context.goNamed('customize'),
+                                          onTap: () => context.pushNamed(
+                                            'customize',
+                                            params: {
+                                              'addons': jsonEncode(
+                                                coffee.addons,
+                                              ),
+                                              'price': coffee.price.toString(),
+                                              'name': coffee.title,
+                                              'image': coffee.image,
+                                              'description':
+                                                  "${coffee.calories}cals, ${coffee.size}oz",
+                                            },
+                                          ),
                                           child: Padding(
                                             padding: const EdgeInsets.only(
-                                                bottom: 30),
+                                              bottom: 30,
+                                            ),
                                             child: TabViewItem(
                                               id: coffee.title,
                                               image: coffee.image,
