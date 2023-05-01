@@ -102,8 +102,7 @@ class _CustomizeState extends State<Customize> with TickerProviderStateMixin {
                       SizedBox(
                         width: double.infinity,
                         child: CachedNetworkImage(
-                          imageUrl:
-                              'https://i.pinimg.com/564x/13/fc/7b/13fc7b57175ac8dd142d75894daa79bf.jpg',
+                          imageUrl: widget.image,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -154,7 +153,7 @@ class _CustomizeState extends State<Customize> with TickerProviderStateMixin {
                             ),
                           ),
                           Text(
-                            "\$${widget.price}",
+                            "\$${widget.price.toStringAsFixed(2)}",
                             style: AppTextTheme.textTheme.bodyLarge,
                           ),
                         ],

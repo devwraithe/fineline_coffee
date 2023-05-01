@@ -11,9 +11,39 @@ class RepoImpl implements Repo {
   RepoImpl(this.dataSource);
 
   @override
-  Future<Either<Failure, List<DrinkEntity>>> fetchDrinks() async {
+  Future<Either<Failure, List<DrinkEntity>>> hotCoffees() async {
     try {
-      final result = await dataSource.fetchDrinks();
+      final result = await dataSource.hotCoffees();
+      return Right(result.map((drink) => drink.toEntity()).toList());
+    } on ServerException {
+      return const Left(ServerFailure("error fetching drinks"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<DrinkEntity>>> coldCoffees() async {
+    try {
+      final result = await dataSource.coldCoffees();
+      return Right(result.map((drink) => drink.toEntity()).toList());
+    } on ServerException {
+      return const Left(ServerFailure("error fetching drinks"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<DrinkEntity>>> hotTeas() async {
+    try {
+      final result = await dataSource.hotTeas();
+      return Right(result.map((drink) => drink.toEntity()).toList());
+    } on ServerException {
+      return const Left(ServerFailure("error fetching drinks"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<DrinkEntity>>> coldTeas() async {
+    try {
+      final result = await dataSource.coldTeas();
       return Right(result.map((drink) => drink.toEntity()).toList());
     } on ServerException {
       return const Left(ServerFailure("error fetching drinks"));

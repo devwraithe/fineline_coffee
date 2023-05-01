@@ -4,11 +4,38 @@ import 'package:fineline_coffee/domain/repo.dart';
 
 import '../core/errors/failure.dart';
 
-class FetchDrinksUsecase {
+class HotCoffeesUsecase {
   final Repo repository;
-  FetchDrinksUsecase(this.repository);
+  HotCoffeesUsecase(this.repository);
 
   Future<Either<Failure, List<DrinkEntity>>> call() async {
-    return await repository.fetchDrinks();
+    return await repository.hotCoffees();
+  }
+}
+
+class ColdCoffeesUsecase {
+  final Repo repository;
+  ColdCoffeesUsecase(this.repository);
+
+  Future<Either<Failure, List<DrinkEntity>>> call() async {
+    return await repository.coldCoffees();
+  }
+}
+
+class HotTeasUsecase {
+  final Repo repository;
+  HotTeasUsecase(this.repository);
+
+  Future<Either<Failure, List<DrinkEntity>>> call() async {
+    return await repository.hotTeas();
+  }
+}
+
+class ColdTeasUsecase {
+  final Repo repository;
+  ColdTeasUsecase(this.repository);
+
+  Future<Either<Failure, List<DrinkEntity>>> call() async {
+    return await repository.coldTeas();
   }
 }

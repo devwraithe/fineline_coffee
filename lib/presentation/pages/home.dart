@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fineline_coffee/domain/drink_entity.dart';
 import 'package:fineline_coffee/presentation/widgets/shimmer_loading.dart';
 import 'package:fineline_coffee/presentation/widgets/tab_view.dart';
 import 'package:flutter/material.dart';
@@ -199,128 +200,89 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 color: AppColors.white,
                 child: Consumer(
                   builder: (_, WidgetRef ref, __) {
-                    final drinksProvider = ref.watch(fetchDrinksProvider);
+                    final hotCoffees = ref.watch(hotCoffeesProvider);
+                    final coldCoffees = ref.watch(coldCoffeesProvider);
+                    final hotTeas = ref.watch(hotTeasProvider);
+                    final coldTeas = ref.watch(coldTeasProvider);
+
                     return TabBarView(
                       controller: _tabController,
                       children: [
                         TabView(
                           title: "HOT COFFEES",
-                          items: drinksProvider.isEmpty
+                          items: hotCoffees.isEmpty
                               ? const ShimmerLoading()
-                              : Expanded(
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: drinksProvider.length,
-                                    itemBuilder: (context, index) {
-                                      final coffee = drinksProvider[index];
-
-                                      return FadeTransition(
-                                        opacity: _animationList[index],
-                                        child: GestureDetector(
-                                          onTap: () => context.pushNamed(
-                                            'customize',
-                                            params: {
-                                              'addons': jsonEncode(
-                                                coffee.addons,
-                                              ),
-                                              'price': coffee.price.toString(),
-                                              'name': coffee.title,
-                                              'image': coffee.image,
-                                              'description':
-                                                  "${coffee.calories}cals, ${coffee.size}oz",
-                                            },
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                              bottom: 30,
-                                            ),
-                                            child: TabViewItem(
-                                              id: coffee.title,
-                                              image: coffee.image,
-                                              name: coffee.title,
-                                              description:
-                                                  "${coffee.calories.toString()}cals, ${coffee.size}oz",
-                                              price: coffee.price.toString(),
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
+                              : showList(hotCoffees),
                         ),
-                        const Text(""),
-                        const Text(""),
-                        const Text(""),
+                        TabView(
+                          title: "COLD COFFEES",
+                          items: coldCoffees.isEmpty
+                              ? const ShimmerLoading()
+                              : showList(coldCoffees),
+                        ),
+                        TabView(
+                          title: "HOT TEAS",
+                          items: hotTeas.isEmpty
+                              ? const ShimmerLoading()
+                              : showList(hotTeas),
+                        ),
+                        TabView(
+                          title: "COLD TEAS",
+                          items: coldTeas.isEmpty
+                              ? const ShimmerLoading()
+                              : showList(coldTeas),
+                        ),
                       ],
                     );
                   },
                 ),
-                // child: TabBarView(
-                //   controller: _tabController,
-                //   children: [
-                //     TabView(
-                //       title: "HOT COFFEES",
-                //       items: Expanded(
-                //         child: ListView.builder(
-                //           shrinkWrap: true,
-                //           itemCount: _hotCoffees.length,
-                //           itemBuilder: (context, index) {
-                //             final coffee = _hotCoffees[index];
-                //             return FadeTransition(
-                //               opacity: _animationList[index],
-                //               child: GestureDetector(
-                //                 onTap: () => context.goNamed('customize'),
-                //                 child: Padding(
-                //                   padding: const EdgeInsets.only(bottom: 30),
-                //                   child: TabViewItem(
-                //                     id: coffee['id'],
-                //                     image: coffee['image'],
-                //                     name: coffee['name'],
-                //                     description: coffee['desc'],
-                //                     price: coffee['price'],
-                //                   ),
-                //                 ),
-                //               ),
-                //             );
-                //           },
-                //         ),
-                //       ),
-                //     ),
-                //     TabView(
-                //       title: "COLD COFFEES",
-                //       items: Expanded(
-                //         child: ListView.builder(
-                //           shrinkWrap: true,
-                //           itemCount: _coldCoffees.length,
-                //           itemBuilder: (context, index) {
-                //             final coffee = _coldCoffees[index];
-                //
-                //             return FadeTransition(
-                //               opacity: _animationList[index],
-                //               child: Padding(
-                //                 padding: const EdgeInsets.only(bottom: 30),
-                //                 child: TabViewItem(
-                //                   id: coffee['id'],
-                //                   image: coffee['image'],
-                //                   name: coffee['name'],
-                //                   description: coffee['desc'],
-                //                   price: coffee['price'],
-                //                 ),
-                //               ),
-                //             );
-                //           },
-                //         ),
-                //       ),
-                //     ),
-                //     const Text(""),
-                //     const Text(""),
-                //   ],
-                // ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget showList(List<DrinkEntity> drinks) {
+    return Expanded(
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: drinks.length,
+        itemBuilder: (context, index) {
+          final coffee = drinks[index];
+
+          return FadeTransition(
+            opacity: _animationList[index],
+            child: GestureDetector(
+              onTap: () => context.pushNamed(
+                'customize',
+                params: {
+                  'addons': jsonEncode(
+                    coffee.addons,
+                  ),
+                  'price': coffee.price.toString(),
+                  'name': coffee.title,
+                  'image': coffee.image,
+                  'description': "${coffee.calories}cals, ${coffee.size}oz",
+                },
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 30,
+                ),
+                child: TabViewItem(
+                  id: coffee.title,
+                  image: coffee.image,
+                  name: coffee.title,
+                  description:
+                      "${coffee.calories.toString()}cals, ${coffee.size}oz",
+                  price: coffee.price.toString(),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
