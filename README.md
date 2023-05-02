@@ -18,6 +18,11 @@ This prototype has the following features:
 - Mock payment methods to choose from
 - Confirmation screen with information about an order
 
+## ⏯️ Demo
+
+https://user-images.githubusercontent.com/39105147/235696349-47a0df7e-f6d6-4f71-a5e7-0cce8781c86a.mp4
+
+
 <!-- ## :camera: Screenshots -->
 
 ## ✨ Requirements
