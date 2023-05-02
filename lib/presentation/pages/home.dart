@@ -1,15 +1,11 @@
-import 'dart:convert';
-
-import 'package:fineline_coffee/domain/drink_entity.dart';
 import 'package:fineline_coffee/presentation/widgets/shimmer_loading.dart';
 import 'package:fineline_coffee/presentation/widgets/tab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../core/theme/app_theme.dart';
 import '../providers/providers.dart';
-import '../widgets/tab_view_item.dart';
+import '../widgets/tab_list.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -99,38 +95,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     },
   ];
 
-  late List<AnimationController> _controllerList;
-  late List<Animation<double>> _animationList;
-
-  void hotCoffeeAnimation() {
-    _controllerList = List.generate(
-      _hotCoffees.length,
-      (int index) => AnimationController(
-        duration: const Duration(milliseconds: 400),
-        vsync: this,
-      ),
-    );
-    _animationList = List.generate(
-      _hotCoffees.length,
-      (int index) => Tween<double>(
-        begin: 0.0,
-        end: 1.0,
-      ).animate(
-        CurvedAnimation(
-          parent: _controllerList[index],
-          curve: Curves.easeOut,
-        ),
-      ),
-    );
-
-    // Start the animations with a delay for each item
-    for (int i = 0; i < _hotCoffees.length; i++) {
-      Future.delayed(Duration(milliseconds: 200 * i), () {
-        _controllerList[i].forward();
-      });
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -138,15 +102,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       length: _tabs.length,
       vsync: this,
     );
-    hotCoffeeAnimation();
-  }
-
-  @override
-  void dispose() {
-    for (int i = 0; i < _hotCoffees.length; i++) {
-      _controllerList[i].dispose();
-    }
-    super.dispose();
   }
 
   @override
@@ -212,25 +167,25 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           title: "HOT COFFEES",
                           items: hotCoffees.isEmpty
                               ? const ShimmerLoading()
-                              : showList(hotCoffees),
+                              : TabList(drinks: hotCoffees),
                         ),
                         TabView(
                           title: "COLD COFFEES",
                           items: coldCoffees.isEmpty
                               ? const ShimmerLoading()
-                              : showList(coldCoffees),
+                              : TabList(drinks: coldCoffees),
                         ),
                         TabView(
                           title: "HOT TEAS",
                           items: hotTeas.isEmpty
                               ? const ShimmerLoading()
-                              : showList(hotTeas),
+                              : TabList(drinks: hotTeas),
                         ),
                         TabView(
                           title: "COLD TEAS",
                           items: coldTeas.isEmpty
                               ? const ShimmerLoading()
-                              : showList(coldTeas),
+                              : TabList(drinks: coldTeas),
                         ),
                       ],
                     );
@@ -240,49 +195,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget showList(List<DrinkEntity> drinks) {
-    return Expanded(
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: drinks.length,
-        itemBuilder: (context, index) {
-          final coffee = drinks[index];
-
-          return FadeTransition(
-            opacity: _animationList[index],
-            child: GestureDetector(
-              onTap: () => context.pushNamed(
-                'customize',
-                params: {
-                  'addons': jsonEncode(
-                    coffee.addons,
-                  ),
-                  'price': coffee.price.toString(),
-                  'name': coffee.title,
-                  'image': coffee.image,
-                  'description': "${coffee.calories}cals, ${coffee.size}oz",
-                },
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 30,
-                ),
-                child: TabViewItem(
-                  id: coffee.title,
-                  image: coffee.image,
-                  name: coffee.title,
-                  description:
-                      "${coffee.calories.toString()}cals, ${coffee.size}oz",
-                  price: coffee.price.toString(),
-                ),
-              ),
-            ),
-          );
-        },
       ),
     );
   }
