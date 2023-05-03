@@ -20,7 +20,7 @@ This prototype has the following features:
 
 ## ⏯️ Demo
 
-https://user-images.githubusercontent.com/39105147/235696349-47a0df7e-f6d6-4f71-a5e7-0cce8781c86a.mp4
+https://user-images.githubusercontent.com/39105147/235928406-3e3e175a-aaba-442b-b1f4-d99b65fdb5ea.mov
 
 
 <!-- ## :camera: Screenshots -->
