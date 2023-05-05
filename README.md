@@ -18,12 +18,15 @@ This prototype has the following features:
 - Mock payment methods to choose from
 - Confirmation screen with information about an order
 
+## 📸 Screenshots
+| Pick Order | Customize Order | Checkout | Confirmation |
+| -------- | -------- | -------- | -------- |
+| ![Simulator Screen Shot - iPhone 14 Pro - 2023-05-05 at 20 02 25](https://user-images.githubusercontent.com/39105147/236547945-288f78cc-83cf-4673-a192-fddad68c5ca9.png)  | ![Simulator Screen Shot - iPhone 14 Pro - 2023-05-05 at 20 02 38](https://user-images.githubusercontent.com/39105147/236547977-b6487cc3-277e-43d6-a915-4b5d3ed9e48b.png) | ![Simulator Screen Shot - iPhone 14 Pro - 2023-05-05 at 20 02 47](https://user-images.githubusercontent.com/39105147/236548006-3c597e60-6686-46d5-81c2-1ad17120ac51.png)  | ![Simulator Screen Shot - iPhone 14 Pro - 2023-05-05 at 20 02 55](https://user-images.githubusercontent.com/39105147/236548020-79d99f1d-1855-49f9-b041-52c8d875c487.png) |
+| Select what you'd like to order, there's different categories of items | Customize your order by selecting a size and including additional flavours | Increase or decrease order quantity and select a method of payment | Confirmation of your order including pickup location, pickup time and order code |
+
 ## ⏯️ Demo
 
 https://user-images.githubusercontent.com/39105147/235928406-3e3e175a-aaba-442b-b1f4-d99b65fdb5ea.mov
-
-
-<!-- ## :camera: Screenshots -->
 
 ## ✨ Requirements
 
