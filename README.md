@@ -1,10 +1,9 @@
 # ☕ Fineline Coffee Co.
 
-**Fineline Coffee Co.** is a mobile application prototype that's designed to help coffee shop owners reduce wait times by allowing customers to place orders in advance using their smartphones.
-<!-- <br/><br/> -->
-<!-- add a video demo here -->
-<!-- <br/><br/> -->
+**Fineline Coffee Co.** is a mobile application that helps users study and memorize information effectively using digital flashcards. It provides a user-friendly interface for creating, organizing, and studying flashcards on various topics. 
+
 Star :star2: the repo if you like what you see :wink:
+
 <br/><br/>
 [![Twitter Follow](https://img.shields.io/twitter/follow/devwraithe.svg?style=social)](https://twitter.com/devwraithe)
 
@@ -52,7 +51,7 @@ $ git clone https://github.com/devwraithe/fineline_coffee
 $ cd fineline_coffee
 ```
 
-3. Install the neccessary dependencies
+3. Install the necessary dependencies
 
 ```sh
 $ flutter pub get
