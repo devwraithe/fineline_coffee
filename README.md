@@ -1,11 +1,6 @@
 # ☕ Fineline Coffee Co.
 
-**Fineline Coffee Co.** is a mobile application that helps users study and memorize information effectively using digital flashcards. It provides a user-friendly interface for creating, organizing, and studying flashcards on various topics. 
-
-Star :star2: the repo if you like what you see :wink:
-
-<br/><br/>
-[![Twitter Follow](https://img.shields.io/twitter/follow/devwraithe.svg?style=social)](https://twitter.com/devwraithe)
+**Fineline Coffee Co.** is a mobile app developed for Fineline Coffee Co. to help them reduce wait times by allowing their customers to preorder on the go. I've harnessed the power Dart and Flutter for the development of this prototype with Riverpod helping to manage the application's state. The app implements a clean architecture that separates the Presentation, Domain and Data layers with a layer-first approach folder structure.
 
 ## 🛠️ Features
 
