@@ -3,7 +3,8 @@ import 'package:fineline_coffee/presentation/widgets/tab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../core/theme/app_theme.dart';
+import '../../app/core/theme/colors.dart';
+import '../../app/core/theme/text_theme.dart';
 import '../providers/providers.dart';
 import '../widgets/tab_list.dart';
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../core/theme/app_theme.dart';
+import '../../app/core/theme/colors.dart';
+import '../../app/core/theme/text_theme.dart';
 
 class Confirmation extends StatelessWidget {
   const Confirmation({super.key});

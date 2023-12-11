@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../../core/theme/app_theme.dart';
+import '../../app/core/theme/colors.dart';
+import '../../app/core/theme/text_theme.dart';
 import '../widgets/order_item.dart';
 import '../widgets/payment_item.dart';
 

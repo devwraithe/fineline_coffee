@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../core/theme/app_theme.dart';
+import '../../app/core/theme/colors.dart';
+import '../../app/core/theme/text_theme.dart';
 
 class OrderSize extends StatelessWidget {
   final String size;

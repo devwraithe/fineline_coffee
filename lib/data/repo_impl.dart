@@ -16,7 +16,7 @@ class RepoImpl implements Repo {
       final result = await dataSource.hotCoffees();
       return Right(result.map((drink) => drink.toEntity()).toList());
     } on ServerException {
-      return const Left(ServerFailure("error fetching drinks"));
+      return const Left(Failure("error fetching drinks"));
     }
   }
 
@@ -26,7 +26,7 @@ class RepoImpl implements Repo {
       final result = await dataSource.coldCoffees();
       return Right(result.map((drink) => drink.toEntity()).toList());
     } on ServerException {
-      return const Left(ServerFailure("error fetching drinks"));
+      return const Left(Failure("error fetching drinks"));
     }
   }
 
@@ -36,7 +36,7 @@ class RepoImpl implements Repo {
       final result = await dataSource.hotTeas();
       return Right(result.map((drink) => drink.toEntity()).toList());
     } on ServerException {
-      return const Left(ServerFailure("error fetching drinks"));
+      return const Left(Failure("error fetching drinks"));
     }
   }
 
@@ -46,7 +46,7 @@ class RepoImpl implements Repo {
       final result = await dataSource.coldTeas();
       return Right(result.map((drink) => drink.toEntity()).toList());
     } on ServerException {
-      return const Left(ServerFailure("error fetching drinks"));
+      return const Left(Failure("error fetching drinks"));
     }
   }
 }

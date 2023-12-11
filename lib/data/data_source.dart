@@ -14,7 +14,7 @@ abstract class DataSource {
 
 class DataSourceImpl implements DataSource {
   final http.Client client;
-  const DataSourceImpl(this.client);
+  DataSourceImpl(this.client);
 
   @override
   Future<List<DrinkModel>> hotCoffees() async {
@@ -26,7 +26,7 @@ class DataSourceImpl implements DataSource {
       }).toList();
       return drinks;
     } else {
-      throw const ServerException("error fetching hot coffees");
+      throw ServerException("error fetching hot coffees");
     }
   }
 
@@ -40,7 +40,7 @@ class DataSourceImpl implements DataSource {
       }).toList();
       return drinks;
     } else {
-      throw const ServerException("error fetching drinks");
+      throw ServerException("error fetching drinks");
     }
   }
 
@@ -54,7 +54,7 @@ class DataSourceImpl implements DataSource {
       }).toList();
       return drinks;
     } else {
-      throw const ServerException("error fetching drinks");
+      throw ServerException("error fetching drinks");
     }
   }
 
@@ -68,7 +68,7 @@ class DataSourceImpl implements DataSource {
       }).toList();
       return drinks;
     } else {
-      throw const ServerException("error fetching drinks");
+      throw ServerException("error fetching drinks");
     }
   }
 }

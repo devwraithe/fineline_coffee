@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "481367264146",
+    "project_id": "fineline-cafe",
+    "storage_bucket": "fineline-cafe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481367264146:android:8fd22f116cc69048394f4b",
+        "android_client_info": {
+          "package_name": "com.example.fineline_coffee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsxIJTRSKUonh7nvoo2Nz1f3sucQynojw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

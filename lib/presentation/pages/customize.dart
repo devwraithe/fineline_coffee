@@ -2,8 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../app/core/theme/colors.dart';
+import '../../app/core/theme/text_theme.dart';
 import '../../core/helpers/sizing.dart';
-import '../../core/theme/theme.dart';
 import '../widgets/order_addons.dart';
 import '../widgets/order_size.dart';
 

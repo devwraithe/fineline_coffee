@@ -1,19 +1,13 @@
-import 'package:equatable/equatable.dart';
-
-class ServerException extends Equatable implements Exception {
-  final String? message;
-
-  const ServerException(this.message);
-
+class ServerException implements Exception {
+  final String message;
+  ServerException(this.message);
   @override
-  List<Object?> get props => [message];
-
-  @override
-  String toString() {
-    return '$message';
-  }
+  String toString() => message;
 }
 
-class FetchDataException extends ServerException {
-  const FetchDataException() : super("Error fetching data");
+class ConnectionException implements Exception {
+  final String message;
+  ConnectionException(this.message);
+  @override
+  String toString() => message;
 }
