@@ -61,11 +61,11 @@ class AuthRepositoryImpl implements AuthRepository {
         return Left(Failure(Constants.unknownError));
       }
     } on SocketException catch (_) {
-      throw ConnectionException(Constants.socketError);
+      return Left(Failure(Constants.socketError));
     } on TimeoutException catch (_) {
-      throw ConnectionException(Constants.timeoutError);
+      return Left(Failure(Constants.timeoutError));
     } catch (e) {
-      throw ServerException(Constants.unknownError);
+      return Left(Failure(e.toString()));
     }
   }
 
