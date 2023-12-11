@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 
 import '../../../../core/errors/exception.dart';
 import '../../../../core/errors/failure.dart';
@@ -35,11 +34,11 @@ class AuthRepositoryImpl implements AuthRepository {
         return Left(Failure(Constants.unknownError));
       }
     } on SocketException catch (_) {
-      throw ConnectionException(Constants.socketError);
+      return Left(Failure(Constants.socketError));
     } on TimeoutException catch (_) {
-      throw ConnectionException(Constants.timeoutError);
+      return Left(Failure(Constants.timeoutError));
     } catch (e) {
-      throw ServerException(Constants.unknownError);
+      return Left(Failure(e.toString()));
     }
   }
 
@@ -75,20 +74,19 @@ class AuthRepositoryImpl implements AuthRepository {
       await _auth.sendPasswordResetEmail(email: email);
       return const Right(null);
     } on FirebaseAuthException catch (e) {
-      debugPrint("ServerException: $e");
       if (e.code == 'user-not-found') {
         return const Left(Failure("No user found for this email"));
-      } else if (e.code == 'invalid-email') {
+      } else if (e.code == 'invalid-credential') {
         return const Left(Failure("Invalid email address"));
       } else {
         return Left(Failure(Constants.unknownError));
       }
     } on SocketException catch (_) {
-      throw ConnectionException(Constants.socketError);
+      return Left(Failure(Constants.socketError));
     } on TimeoutException catch (_) {
-      throw ConnectionException(Constants.timeoutError);
+      return Left(Failure(Constants.timeoutError));
     } catch (e) {
-      throw ServerException(Constants.unknownError);
+      return Left(Failure(Constants.unknownError));
     }
   }
 
@@ -102,14 +100,8 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> logout() async {
     try {
       await _auth.signOut();
-    } on FirebaseAuthException {
-      throw ServerException("No user found for this email");
-    } on SocketException {
-      throw ConnectionException(Constants.socketError);
-    } on TimeoutException catch (_) {
-      throw ConnectionException(Constants.timeoutError);
     } catch (e) {
-      throw ServerException(Constants.unknownError);
+      throw ServerException(e.toString());
     }
   }
 }
