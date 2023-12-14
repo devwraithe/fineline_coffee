@@ -1,12 +1,6 @@
 # ☕ Fineline Coffee Co.
 
-**Fineline Coffee Co.** is a mobile application prototype that's designed to help coffee shop owners reduce wait times by allowing customers to place orders in advance using their smartphones.
-<!-- <br/><br/> -->
-<!-- add a video demo here -->
-<!-- <br/><br/> -->
-Star :star2: the repo if you like what you see :wink:
-<br/><br/>
-[![Twitter Follow](https://img.shields.io/twitter/follow/devwraithe.svg?style=social)](https://twitter.com/devwraithe)
+**Fineline Coffee Co.** is a mobile app developed to help reduce wait times by allowing customers to preorder whatever they want on the go. I've harnessed the power Dart and Flutter for the development of this prototype with Riverpod helping to manage the application's state. The app implements a clean architecture that separates the Presentation, Domain and Data layers with a layer-first approach folder structure.
 
 ## 🛠️ Features
 
@@ -52,7 +46,7 @@ $ git clone https://github.com/devwraithe/fineline_coffee
 $ cd fineline_coffee
 ```
 
-3. Install the neccessary dependencies
+3. Install the necessary dependencies
 
 ```sh
 $ flutter pub get

@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             );
                           }
                           if (state is LoginSuccessful) {
-                            debugPrint("Login successful");
+                            context.goNamed("menu");
                           }
                         },
                         builder: (context, state) {
