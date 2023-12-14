@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:fineline_coffee/app/features/authentication/presentation/register/register_screen.dart';
 import 'package:fineline_coffee/app/features/authentication/presentation/reset_password/reset_password_screen.dart';
+import 'package:fineline_coffee/app/features/menu/presentation/menu_screen.dart';
+import 'package:fineline_coffee/app/features/order/order_screen.dart';
 import 'package:fineline_coffee/core/router/routes_config.dart';
 import 'package:fineline_coffee/presentation/pages/customize.dart';
 import 'package:go_router/go_router.dart';
@@ -18,6 +20,8 @@ final routes = [
     parentNavigatorKey: RoutesConfig.navigationKey,
     builder: (context, state) => const Home(),
   ),
+
+  // Authentication
   GoRoute(
     name: "register",
     path: "/register",
@@ -36,6 +40,23 @@ final routes = [
     parentNavigatorKey: RoutesConfig.navigationKey,
     builder: (context, state) => const ResetPasswordScreen(),
   ),
+
+  // Order
+  GoRoute(
+    name: "order",
+    path: "/order",
+    parentNavigatorKey: RoutesConfig.navigationKey,
+    builder: (context, state) => const OrderScreen(),
+  ),
+
+  // Menu
+  GoRoute(
+    name: "menu",
+    path: "/menu",
+    parentNavigatorKey: RoutesConfig.navigationKey,
+    builder: (context, state) => const MenuScreen(),
+  ),
+
   GoRoute(
     name: "customize",
     path: "/customize/:addons/:price/:name/:image/:description",

@@ -1,3 +1,4 @@
+import 'package:fineline_coffee/app/core/utilities/injectors/menu_injector.dart';
 import 'package:get_it/get_it.dart';
 
 import '../injectors/auth_injector.dart';
@@ -18,6 +19,10 @@ void init() {
   loginInjector();
   resetPasswordInjector();
 
+  // Menus
+  menusInjector();
+
   // base injectors
   authInjector();
+  menuInjector();
 }
