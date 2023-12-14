@@ -1,5 +1,6 @@
 import 'package:fineline_coffee/app/features/authentication/presentation/reset_password/cubit/reset_password_cubit.dart';
 import 'package:fineline_coffee/app/features/menu/presentation/cubits/menus_cubit.dart';
+import 'package:fineline_coffee/app/features/menu/presentation/sub_menu/cubit/sub_menu_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../features/authentication/presentation/login/cubit/login_cubit.dart';
@@ -15,5 +16,6 @@ blocProviders() {
 
     // Menu
     BlocProvider(create: (_) => sl<MenusCubit>()),
+    BlocProvider(create: (_) => sl<SubMenuCubit>()),
   ];
 }

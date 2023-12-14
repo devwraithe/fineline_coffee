@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fineline_coffee/app/features/authentication/presentation/register/register_screen.dart';
 import 'package:fineline_coffee/app/features/authentication/presentation/reset_password/reset_password_screen.dart';
 import 'package:fineline_coffee/app/features/menu/presentation/menu_screen.dart';
+import 'package:fineline_coffee/app/features/menu/presentation/sub_menu/sub_menu_screen.dart';
 import 'package:fineline_coffee/app/features/order/order_screen.dart';
 import 'package:fineline_coffee/core/router/routes_config.dart';
 import 'package:fineline_coffee/presentation/pages/customize.dart';
@@ -55,6 +56,15 @@ final routes = [
     path: "/menu",
     parentNavigatorKey: RoutesConfig.navigationKey,
     builder: (context, state) => const MenuScreen(),
+  ),
+  GoRoute(
+    name: "sub_menu",
+    path: "/menu/:menu_type/:id",
+    parentNavigatorKey: RoutesConfig.navigationKey,
+    builder: (context, state) => SubMenuScreen(
+      id: state.params['id'].toString(),
+      menuType: state.params['menu_type'].toString(),
+    ),
   ),
 
   GoRoute(

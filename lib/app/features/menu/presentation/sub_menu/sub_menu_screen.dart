@@ -1,27 +1,37 @@
 import 'package:fineline_coffee/app/core/theme/colors.dart';
 import 'package:fineline_coffee/app/core/utilities/helpers/ui_helpers.dart';
-import 'package:fineline_coffee/app/features/menu/presentation/cubits/menus_cubit.dart';
-import 'package:fineline_coffee/app/features/menu/presentation/cubits/menus_state.dart';
-import 'package:fineline_coffee/app/features/menu/presentation/menu_item.dart';
+import 'package:fineline_coffee/app/features/menu/presentation/sub_menu/cubit/sub_menu_cubit.dart';
+import 'package:fineline_coffee/app/features/order/order_item.dart';
 import 'package:fineline_coffee/app/features/order/title_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../core/theme/text_theme.dart';
+import '../../../../core/theme/text_theme.dart';
+import 'cubit/sub_menu_state.dart';
 
-class MenuScreen extends StatefulWidget {
-  const MenuScreen({super.key});
+class SubMenuScreen extends StatefulWidget {
+  const SubMenuScreen({
+    super.key,
+    required this.id,
+    required this.menuType,
+  });
+
+  final String id, menuType;
 
   @override
-  State<MenuScreen> createState() => _MenuScreenState();
+  State<SubMenuScreen> createState() => _SubMenuScreenState();
 }
 
-class _MenuScreenState extends State<MenuScreen> {
+class _SubMenuScreenState extends State<SubMenuScreen> {
+  String? id;
+
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<MenusCubit>(context).getMenu();
+    debugPrint(widget.id);
+    BlocProvider.of<SubMenuCubit>(context).getSubMenu(
+      widget.id,
+    );
   }
 
   @override
@@ -42,43 +52,37 @@ class _MenuScreenState extends State<MenuScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "MENU",
+                      widget.menuType.toUpperCase(),
                       style: text.headlineSmall?.copyWith(
                         letterSpacing: 2,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(height: 28),
-                    BlocBuilder<MenusCubit, MenusState>(
+                    BlocBuilder<SubMenuCubit, SubMenuState>(
                       builder: (context, state) {
-                        if (state is MenusLoading) {
+                        if (state is SubMenuLoading) {
                           return UiHelpers.loader();
                         }
-                        if (state is MenusLoaded) {
+                        if (state is SubMenuLoaded) {
                           final menu = state.result;
 
                           if (menu.isNotEmpty) {
                             return Column(
                               children: [
                                 for (final item in menu)
-                                  MenuItem(
+                                  OrderItem(
                                     id: item.id,
                                     image: item.image,
                                     name: item.name,
-                                    onPressed: () => context.pushNamed(
-                                      "sub_menu",
-                                      params: {
-                                        'id': item.id,
-                                        'menu_type': item.name,
-                                      },
-                                    ),
+                                    price: item.price.toString(),
                                   ),
                               ],
                             );
                           } else {
                             return const Text("Nothing available");
                           }
-                        } else if (state is MenusError) {
+                        } else if (state is SubMenuError) {
                           return Text(state.message);
                         } else {
                           return const SizedBox();

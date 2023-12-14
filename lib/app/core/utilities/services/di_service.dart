@@ -21,6 +21,7 @@ void init() {
 
   // Menus
   menusInjector();
+  subMenuInjector();
 
   // base injectors
   authInjector();

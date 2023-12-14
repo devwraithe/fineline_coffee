@@ -9,45 +9,50 @@ class MenuItem extends StatelessWidget {
     required this.id,
     required this.image,
     required this.name,
+    this.onPressed,
   });
 
   final String image, name, id;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
     const text = AppTextTheme.textTheme;
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 18),
-      decoration: const BoxDecoration(
-        color: AppColors.white10,
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(8),
-          bottomRight: Radius.circular(8),
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 18),
+        decoration: const BoxDecoration(
+          color: AppColors.white10,
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(8),
+            bottomRight: Radius.circular(8),
+          ),
         ),
-      ),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(6),
-              bottomLeft: Radius.circular(6),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(6),
+                bottomLeft: Radius.circular(6),
+              ),
+              child: CachedNetworkImage(
+                imageUrl: image,
+                width: 74,
+                height: 74,
+                fit: BoxFit.cover,
+              ),
             ),
-            child: CachedNetworkImage(
-              imageUrl: image,
-              width: 74,
-              height: 74,
-              fit: BoxFit.cover,
+            const SizedBox(width: 20),
+            Text(
+              name,
+              style: text.headlineSmall?.copyWith(
+                fontWeight: FontWeight.w500,
+              ),
             ),
-          ),
-          const SizedBox(width: 20),
-          Text(
-            name,
-            style: text.headlineSmall?.copyWith(
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
